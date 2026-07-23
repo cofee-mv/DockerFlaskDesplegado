@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despliegue CBA - Docker</title>
+    <link rel="stylesheet" href="/static/styles.css"/>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <span class="badge">SENA CBA</span>
+            <h1>Centro de Biotecnología Agropecuaria</h1>
+        </div>
+        
+        <p class="subtitle">Entorno de desarrollo accedido desde {{request.remote_addr}} por CDMC</p>
+        
+        <div class="status-box {{ 'success' if 'exitosa' in db_status else 'error' }}">
+            <div class="status-icon">
+                {% if 'exitosa' in db_status %}
+                    ✓
+                {% else %}
+                    ✕
+                {% endif %}
+            </div>
+            <div class="status-info">
+                <span class="status-label">Estado de la Base de Datos:</span>
+                <span class="status-text">{{ db_status }}</span>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <p>Entorno en <code>mantenimiento</code></p>
+        </div>
+    </div>
+</body>
+</html>
