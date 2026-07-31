@@ -8,7 +8,7 @@ def home():
     try:
         # Vamos a intentar conectarnos a la BD
         conn = pymysql.connect(
-            host="servidor-bd-ejemplo",
+            host="servidor-bd-082",
             user="root",
             password="sena123",
             database="adso_db_ejemplo",
