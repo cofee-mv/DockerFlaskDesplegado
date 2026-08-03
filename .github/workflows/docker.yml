@@ -1,0 +1,20 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar proyecto
+        run: echo "Proyecto descargado correctamente"
+
+      - name: Construir imagen Docker
+        run: docker build -t mi-app .
