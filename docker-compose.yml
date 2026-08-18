@@ -13,6 +13,17 @@ services:
     networks:
       - red-ejemplo-082
 
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime-kuma-data:/app/data
+    networks:
+      - red-ejemplo-082
+
   db:
     image: mysql:8.0
     container_name: servidor-bd-082
@@ -38,6 +49,7 @@ services:
 
 volumes:
   mysql-data:
+  uptime-kuma-data:
 
 networks:
   red-ejemplo-082:
