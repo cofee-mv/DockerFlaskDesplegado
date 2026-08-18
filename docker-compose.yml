@@ -49,7 +49,9 @@ services:
 
 volumes:
   mysql-data:
+    name: mysql-data
   uptime-kuma-data:
-
+    name: uptime-kume-data
 networks:
   red-ejemplo-082:
+    name: red-ejemplo-082
