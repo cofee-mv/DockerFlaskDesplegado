@@ -1,5 +1,5 @@
 def test_ejemplo_basico():
-    assert 1 + 1 == 3
+    assert 1 + 1 == 2
 
 
 
