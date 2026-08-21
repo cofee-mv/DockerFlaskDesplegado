@@ -27,5 +27,18 @@ spets:
      push: true 
      tags: saramv/docker-flask-backend:latest
 
+     name: Desplegar en el servidor cloud
+     uses: appleboy/sshh-action@1.0.3
+     with:
+     host::${{secrets.SERVER_HOST}}
+     username:${{secrets.SERVER_USER}}
+     key:${{secrets.SERVER_SHH_KEY}}
+script:
+cd ~/DockerFlaskDesplegado 
+docker compose pull app-backend
+docker compose up -d
+     
+
+
     
 

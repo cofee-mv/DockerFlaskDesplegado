@@ -15,7 +15,7 @@ def home():
             connect_timeout=3
 		)
         conn.close()
-        db_status= "Conexion exitosa a la BD!"
+        db_status= "Conexion exitosa a la BD ,prueba para CI,CD para despliegue continuo!"
     except Exception as e:
         db_status = f"Error en la conexion: {e}"
 
