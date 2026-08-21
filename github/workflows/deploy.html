@@ -1,44 +1,37 @@
-name : Publicar  imagen en docker
+name: Publicar Imagen en Docker Hub
 
-
-on: 
-push:
-branches:["main"]
-
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-build-and-push:
-runs-on :ubuntu-lastest
-spets:
-   name:Descargar codigo
-   uses:actions/chekout@v3
+  build-and-push:
+    runs-on: ubuntu-latest
 
-   name:iniciar sesion en docker hub
-   uses:docker/login-actions@v2
-   with:
-    username:${{secrets.DOCKER_USERNAME}}
-    password:${{secrets.DOCKER_PASSWORD}}
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
 
+      - name: Iniciar sesión en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASWORD }}
 
-     name:Construir y subir imagen
-     uses: docker/build-push-action@v4
-     with:
-     context: .
-     push: true 
-     tags: saramv/docker-flask-backend:latest
-
-     name: Desplegar en el servidor cloud
-     uses: appleboy/sshh-action@1.0.3
-     with:
-     host::${{secrets.SERVER_HOST}}
-     username:${{secrets.SERVER_USER}}
-     key:${{secrets.SERVER_SHH_KEY}}
-script:
-cd ~/DockerFlaskDesplegado 
-docker compose pull app-backend
-docker compose up -d
-     
-
-
-    
-
+      - name: Construir y subir imagen
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: mariana220308/sample-api:v1
+      - name: Desplegar en el servidor cloud
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd ~/docker_flask_desplegado
+            docker compose pull app-backend
+            docker compose up -d
