@@ -6,23 +6,24 @@ load_dotenv()
 
 sample = Flask(__name__)
 
+MYSQL_PASSWORD = "super_secret_123"
+
 @sample.route("/")
 def home():
     try:
-        # Vamos a intentar conectarnos a la BD
         conn = pymysql.connect(
             host=os.getenv("host"),
             user=os.getenv("user"),
-            password=os.getenv("password"),
+            password=MYSQL_PASSWORD,
             database=os.getenv("database"),
             connect_timeout=os.getenv("connect_timeout"),
-		)
+        )
         conn.close()
-        db_status= "Conexion exitosa a la BD ,prueba para CI,CD para despliegue continuo!"
+        db_status = "Error 500 - Fallo interno del servidor"
     except Exception as e:
         db_status = f"Error en la conexion: {e}"
 
     return render_template("index.html", db_status=db_status)
 
 if __name__ == '__main__':
-    sample.run(host=os.getenv("tsoh"), port=os.getenv("port"), debug=os.getenv("debug"), )
+    sample.run(host=os.getenv("tsoh"), port=os.getenv("port"), debug=True)
