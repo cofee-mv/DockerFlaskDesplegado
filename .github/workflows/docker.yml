@@ -25,7 +25,7 @@ jobs:
           pip install pytest bandit
 
       - name: Escaneo de seguridad (bandit)
-          run: bandit -r . -s B101  
+        run: bandit -r . -s B101
           
         # ignorar los archivos test
 
