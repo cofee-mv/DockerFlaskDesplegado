@@ -1,5 +1,8 @@
 from flask import Flask, render_template
 import pymysql
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 sample = Flask(__name__)
 
@@ -8,11 +11,11 @@ def home():
     try:
         # Vamos a intentar conectarnos a la BD
         conn = pymysql.connect(
-            host="servidor-bd-082",
-            user="root",
-            password="sena123",
-            database="adso_db_ejemplo",
-            connect_timeout=3
+            host=os.getenv("host"),
+            user=os.getenv("user"),
+            password=os.getenv("password"),
+            database=os.getenv("database"),
+            connect_timeout=os.getenv("connect_timeout"),
 		)
         conn.close()
         db_status= "Conexion exitosa a la BD ,prueba para CI,CD para despliegue continuo!"
@@ -22,4 +25,4 @@ def home():
     return render_template("index.html", db_status=db_status)
 
 if __name__ == '__main__':
-    sample.run(host="0.0.0.0", port=5050, debug=True)
+    sample.run(host=os.getenv("tsoh"), port=os.getenv("port"), debug=os.getenv("debug"), )

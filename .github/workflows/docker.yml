@@ -22,7 +22,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest
+          pip install pytest bandit
+
+      - name: Escaneo de seguridad (bandit)
+          run: bandit -r . -s B101  
+          
+        # ignorar los archivos test
 
       - name: Ejecutar pruebas pytest
         run: pytest
@@ -45,8 +50,21 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
+          push: false
+          load: true
           tags: saramv/docker-flask-backend:latest
+
+      - name: escanear contenedor con trivy
+          uses: aquasecurity/trivy-action@master
+          with: 'saramv/docker-flask-backend:latest'
+          image-ref:
+          format: 'table'
+          exit-code: '1' #si encuentra alguna falta rompe la ejecucion
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+
 
   deploy:
     needs: build-and-push
