@@ -55,9 +55,9 @@ jobs:
           tags: saramv/docker-flask-backend:latest
 
       - name: escanear contenedor con trivy
-          uses: aquasecurity/trivy-action@master
-          with: 'saramv/docker-flask-backend:latest'
-          image-ref:
+        uses: aquasecurity/trivy-action@master
+        with: 'saramv/docker-flask-backend:latest'
+        image-ref:
           format: 'table'
           exit-code: '1' #si encuentra alguna falta rompe la ejecucion
           ignore-unfixed: true
