@@ -24,6 +24,19 @@ services:
     networks:
       - red-ejemplo-082
 
+
+  
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8080:8080"
+    networks:
+      - red-cba
+      
   db:
     image: mysql:8.0
     container_name: servidor-bd-082
