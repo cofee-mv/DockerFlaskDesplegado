@@ -35,8 +35,9 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - red-cba
-      
+      - red-ejemplo-082
+
+
   db:
     image: mysql:8.0
     container_name: servidor-bd-082
